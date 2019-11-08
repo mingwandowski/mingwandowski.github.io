@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>my first blog | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="leetcode notesreturn the values in a map as List:  1return new ArrayList&amp;lt;List&amp;lt;String&amp;gt;&amp;gt;(map.values());  to be continued">
+  <meta name="description" content="leetcode notes return the values in a map as List:   1return new ArrayList&amp;lt;List&amp;lt;String&amp;gt;&amp;gt;(map.values());    StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length">
 <meta property="og:type" content="article">
 <meta property="og:title" content="my first blog">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;06&#x2F;my-first-blog&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="leetcode notesreturn the values in a map as List:  1return new ArrayList&amp;lt;List&amp;lt;String&amp;gt;&amp;gt;(map.values());  to be continued">
+<meta property="og:description" content="leetcode notes return the values in a map as List:   1return new ArrayList&amp;lt;List&amp;lt;String&amp;gt;&amp;gt;(map.values());    StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-07T22:39:57.082Z">
+<meta property="og:updated_time" content="2019-11-08T20:37:28.891Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -162,8 +162,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="leetcode-notes"><a href="#leetcode-notes" class="headerlink" title="leetcode notes"></a>leetcode notes</h2><p>return the values in a map as List: </p>
+        <h2 id="leetcode-notes"><a href="#leetcode-notes" class="headerlink" title="leetcode notes"></a>leetcode notes</h2><ol>
+<li>return the values in a map as List: </li>
+</ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;List&lt;String&gt;&gt;(map.values());</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="2">
+<li>StringBuilder has no “sb.remove()” method, try these:</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sb.deleteCharAt(sb.length() - <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="to-be-continued"><a href="#to-be-continued" class="headerlink" title="to be continued"></a>to be continued</h3>
       

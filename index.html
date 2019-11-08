@@ -161,8 +161,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="leetcode-notes"><a href="#leetcode-notes" class="headerlink" title="leetcode notes"></a>leetcode notes</h2><p>return the values in a map as List: </p>
+        <h2 id="leetcode-notes"><a href="#leetcode-notes" class="headerlink" title="leetcode notes"></a>leetcode notes</h2><ol>
+<li>return the values in a map as List: </li>
+</ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;List&lt;String&gt;&gt;(map.values());</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="2">
+<li>StringBuilder has no “sb.remove()” method, try these:</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sb.deleteCharAt(sb.length() - <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="to-be-continued"><a href="#to-be-continued" class="headerlink" title="to be continued"></a>to be continued</h3>
       
