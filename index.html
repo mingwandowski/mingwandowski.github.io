@@ -178,12 +178,29 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span>[] b1 = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">1</span>];</span><br><span class="line">b1[<span class="number">0</span>] == <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Boolean[] b2 = <span class="keyword">new</span> Boolean[<span class="number">1</span>];</span><br><span class="line">b2[<span class="number">0</span>] == <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
 
+<hr>
 <ul>
 <li><p>comparator</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Compartor&lt;String&gt; myComp = <span class="keyword">new</span> Comparator&lt;String&gt;()&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String s1, String s2)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Arrays.sort(logs, myComp);</span><br></pre></td></tr></table></figure>
+
 </li>
+</ul>
+<hr>
+<ul>
 <li><p>PriorityQueue</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue&lt;Integer&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;((p1, p2) -&gt; p2 - p1);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<ul>
+<li>split string<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] words = paragraph.toLowerCase().split(<span class="string">"\\W+"</span>);</span><br><span class="line"><span class="comment">//\\W means matches the nonword characters.</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<ul>
+<li>map.getOrDefault(key, value)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(word, map.getOrDefault(word, <span class="number">0</span>) + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
