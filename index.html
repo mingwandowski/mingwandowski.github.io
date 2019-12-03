@@ -194,7 +194,11 @@
 </ul>
 <hr>
 <ul>
-<li>split string<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] words = paragraph.toLowerCase().split(<span class="string">"\\W+"</span>);</span><br><span class="line"><span class="comment">//\\W means matches the nonword characters.</span></span><br></pre></td></tr></table></figure>
+<li><p>split string</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] words = paragraph.toLowerCase().split(<span class="string">"\\W+"</span>);</span><br><span class="line"><span class="comment">//\\W means matches the nonword characters.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Object[] toArray() &amp; <T> T[] toArray(T[] a)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = collection.toArray();</span><br><span class="line"></span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line"><span class="keyword">return</span> collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> Sring[collection.size()]);</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
