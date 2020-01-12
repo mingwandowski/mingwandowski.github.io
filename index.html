@@ -141,6 +141,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Learn-Python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/11/Learn-Python/">Learn Python</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/11/Learn-Python/" class="archive-article-date">
+  	<time datetime="2020-01-12T00:42:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Compare-With-Java"><a href="#Compare-With-Java" class="headerlink" title="Compare With Java"></a>Compare With Java</h2><h2 id="Other-Tricks"><a href="#Other-Tricks" class="headerlink" title="Other Tricks"></a>Other Tricks</h2><h3 id="2d-array"><a href="#2d-array" class="headerlink" title="2d array"></a>2d array</h3><p>There is a methon like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = [[<span class="number">0</span>] * <span class="number">4</span>] * <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>However when we change a number, such as:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>It will become:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line"> [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line"> [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
+<p>So we have to do like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = [([<span class="number">0</span>] * <span class="number">4</span> ) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>)]</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/11/Learn-Python/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-leetcode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -194,11 +264,13 @@
 </ul>
 <hr>
 <ul>
-<li><p>split string</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] words = paragraph.toLowerCase().split(<span class="string">"\\W+"</span>);</span><br><span class="line"><span class="comment">//\\W means matches the nonword characters.</span></span><br></pre></td></tr></table></figure>
+<li>split string<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] words = paragraph.toLowerCase().split(<span class="string">"\\W+"</span>);</span><br><span class="line"><span class="comment">//\\W means matches the nonword characters.</span></span><br></pre></td></tr></table></figure>
+
 </li>
-<li><p>Object[] toArray() &amp; <T> T[] toArray(T[] a)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = collection.toArray();</span><br><span class="line"></span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line"><span class="keyword">return</span> collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> Sring[collection.size()]);</span><br></pre></td></tr></table></figure>
+</ul>
+<hr>
+<ul>
+<li>Object[] toArray() &amp; <T> T[] toArray(T[] a)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = collection.toArray();</span><br><span class="line"></span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line"><span class="keyword">return</span> collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> Sring[collection.size()]);</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -484,7 +556,7 @@ if you want a number type, try this<figure class="highlight js"><table><tr><td c
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 Haoming Gao
+    		&copy; 2020 Haoming Gao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
