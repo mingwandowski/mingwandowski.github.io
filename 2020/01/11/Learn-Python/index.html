@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Compare With JavaOther Tricks2d arrayThere is a methon like this: 1arr = [[0] * 4] * 3 However when we change a number, such as: 1arr[0][1] = 1 It will become: 123[[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-12T01:00:25.848Z">
+<meta property="og:updated_time" content="2020-01-12T03:19:28.501Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -170,6 +170,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line"> [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line"> [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
 <p>So we have to do like this:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = [([<span class="number">0</span>] * <span class="number">4</span> ) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>)]</span><br></pre></td></tr></table></figure>
+<p>Or another way using numpy:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">X = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">4</span>, <span class="number">5</span>], [<span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line"></span><br><span class="line">Z = np.array([[<span class="number">0</span>] * <span class="number">3</span>] * <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
 
       
 
