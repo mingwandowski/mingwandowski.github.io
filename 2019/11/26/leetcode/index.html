@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="leetcode return the values in a map as List:   1return new ArrayList&amp;lt;List&amp;lt;String&amp;gt;&amp;gt;(map.values());    StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length() - 1">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-04T20:06:50.063Z">
+<meta property="og:updated_time" content="2020-01-16T06:53:14.056Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -207,8 +207,10 @@
 </ul>
 <hr>
 <ul>
-<li>map.getOrDefault(key, value)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(word, map.getOrDefault(word, <span class="number">0</span>) + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-
+<li><p>map.getOrDefault(key, value)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(word, map.getOrDefault(word, <span class="number">0</span>) + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Binary Search<br>mid using (start + end) / 2 may cost integer overflow<br>should use start + (end - start) / 2</p>
 </li>
 </ul>
 <h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><ul>
