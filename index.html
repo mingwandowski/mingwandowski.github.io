@@ -453,7 +453,14 @@
 <li><p>map.getOrDefault(key, value)</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(word, map.getOrDefault(word, <span class="number">0</span>) + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Binary Search<br>mid using (start + end) / 2 may cost integer overflow<br>should use start + (end - start) / 2</p>
+<li><p>Binary Search</p>
+</li>
+</ul>
+<p>Mid using (start + end) / 2 may cost integer overflow<br>should use start + (end - start) / 2</p>
+<ul>
+<li><p>Traversal Map/Set in order</p>
+<p>HashMap and Hashtable are in the “hash order that is conducive to random search”. They are saved not in input order. We can only output all while traversing, without order. We can even rehash() the hash again to get an internal order that is more conducive to random access.</p>
+<p>Just use <strong>LinkedHashMap</strong> or <strong>LinkedHashSet</strong></p>
 </li>
 </ul>
 <h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><ul>
