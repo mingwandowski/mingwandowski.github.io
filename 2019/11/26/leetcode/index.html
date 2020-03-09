@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Mistakes I&#39;ve Made | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="leetcode return the values in a map as List:   1return new ArrayList&amp;lt;List&amp;lt;String&amp;gt;&amp;gt;(map.values());    StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length() - 1">
+  <meta name="description" content="leetcode StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length() - 1);    new boolean[] vs new Boolean[]  12345boolean[] b1 = new boolean[1];b1[0] == false;Boolean[] b2 = n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mistakes I&#39;ve Made">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;leetcode&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="leetcode return the values in a map as List:   1return new ArrayList&amp;lt;List&amp;lt;String&amp;gt;&amp;gt;(map.values());    StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length() - 1">
+<meta property="og:description" content="leetcode StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length() - 1);    new boolean[] vs new Boolean[]  12345boolean[] b1 = new boolean[1];b1[0] == false;Boolean[] b2 = n">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-05T03:03:28.022Z">
+<meta property="og:updated_time" content="2020-03-09T21:40:54.113Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -159,12 +159,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="leetcode"><a href="#leetcode" class="headerlink" title="leetcode"></a>leetcode</h2><ul>
-<li>return the values in a map as List: </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;List&lt;String&gt;&gt;(map.values());</span><br></pre></td></tr></table></figure>
-
-<hr>
-<ul>
 <li>StringBuilder has no “sb.remove()” method, try these:</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sb.deleteCharAt(sb.length() - <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
@@ -174,7 +168,7 @@
 <li>new boolean[] vs new Boolean[]</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span>[] b1 = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">1</span>];</span><br><span class="line">b1[<span class="number">0</span>] == <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Boolean[] b2 = <span class="keyword">new</span> Boolean[<span class="number">1</span>];</span><br><span class="line">b2[<span class="number">0</span>] == <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
-
+<a id="more"></a>
 <hr>
 <ul>
 <li><p>comparator</p>
@@ -297,11 +291,11 @@ if you want a number type, try this<figure class="highlight js"><table><tr><td c
   
 <nav id="article-nav">
   
-    <a href="/2020/01/11/learn-python/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/01/18/vim/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Learn Python
+          vim
         
       </div>
     </a>
