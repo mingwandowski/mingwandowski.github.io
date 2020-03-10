@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>thoughts for my apps | Hexo</title>
+  <title>Mistakes I&#39;ve Made | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SoommateIt’s been a while since I came out of this idea. It was when we discussed the rent distribution about each room.  In our situation, we got 4 guys would like to live in a 3b2b apartment to redu">
+  <meta name="description" content="leetcode StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length() - 1);    new boolean[] vs new Boolean[]  12345boolean[] b1 = new boolean[1];b1[0] == false;Boolean[] b2 = n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="thoughts for my apps">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;23&#x2F;thoughts-for-my-apps&#x2F;index.html">
+<meta property="og:title" content="Mistakes I&#39;ve Made">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;08&#x2F;leetcode&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="SoommateIt’s been a while since I came out of this idea. It was when we discussed the rent distribution about each room.  In our situation, we got 4 guys would like to live in a 3b2b apartment to redu">
+<meta property="og:description" content="leetcode StringBuilder has no “sb.remove()” method, try these:  1sb.deleteCharAt(sb.length() - 1);    new boolean[] vs new Boolean[]  12345boolean[] b1 = new boolean[1];b1[0] == false;Boolean[] b2 = n">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-20T20:18:03.648Z">
+<meta property="og:updated_time" content="2020-03-10T07:11:54.569Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -77,7 +77,7 @@
 		        
 					<a class="github" target="_blank" href="https://github.com/mingwandowski" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/gao-haoming-12559914b/" title="linkedin"><i class="icon-linkedin"></i></a>
+					<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/haoming-gao-12559914b/" title="linkedin"><i class="icon-linkedin"></i></a>
 		        
 			</div>
 		</nav>
@@ -114,7 +114,7 @@
 			        
 						<a class="github" target="_blank" href="https://github.com/mingwandowski" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/gao-haoming-12559914b/" title="linkedin"><i class="icon-linkedin"></i></a>
+						<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/haoming-gao-12559914b/" title="linkedin"><i class="icon-linkedin"></i></a>
 			        
 				</div>
 			</nav>
@@ -138,34 +138,87 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-thoughts-for-my-apps" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-leetcode" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      thoughts for my apps
+      Mistakes I&#39;ve Made
     </h1>
   
 
         
-        <a href="/2019/11/23/thoughts-for-my-apps/" class="archive-article-date">
-  	<time datetime="2019-11-24T00:13:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-23</time>
+        <a href="/2020/03/08/leetcode/" class="archive-article-date">
+  	<time datetime="2020-03-08T19:05:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Soommate"><a href="#Soommate" class="headerlink" title="Soommate"></a>Soommate</h2><p>It’s been a while since I came out of this idea. It was when we discussed the rent distribution about each room. </p>
-<p>In our situation, we got 4 guys would like to live in a 3b2b apartment to reduce our average rent, but no one would like to be like a host because that would be troublesome and kind of awkward since we still did not know each other well at that time. Because each room has different size and one guy should be chosen to live in the living room, its really difficult to figure out how much is each room and who wants to choose which room.</p>
-<p>We used the most stupid way to decide: dice. Is it justice? Yeah, but I think this is not only about justice, it’s more about finding the most suitable room for each tenant. For instance, someone is rich, he does not care about how much each room takes, he just wanna live int the biggest room, the master room, with a personal bathroom in it. In other cases another guy actually does not care about what kind of room because he spent most of his time at school, then he might just choose the cheapest one. We don’t live here for several day, we are gonna live here for a while. So I believe there must be a way to figure it out. </p>
-<p>My solution, as shown in this app, is actually very easy. Each of us can make an evaluation of each room. Or in other words, gives out the highest price we would like to pay for each room. Since the total price is constant, we can find at least one combination that comes out the highest total amount that is more than the total price of the apartment. That’s the value for each room that everyone is happy and even more happier because we can separate the amount above to each one. It’s not just justice, but also reasonable. Everyone’s happy and we solve the problem. </p>
-<p>However, no one listened to this suggestion so I had to accept the decision made by dice. Thankfully it’s okay, not bad for me, just I believe we all learn computer science, we can figure out problems like this like in programming. So when I built this web application I named it Soommate as Stupid Roommate. Well, I tell them it means Super Roommate. But whatever it’s just a joke, they are all great guys and we have a great time here. </p>
-<p>And actually I have more thought about solving problems like this. In our situation we are four guys would like to share one apartment before we rant this apartment. It’s not that common for everyone I guess, mostly it fits for several friends going to the university. But a lot of people do not even know anyone before they come, they cannot afford a whole apartment and they may fail to apply for a dorm at school. In this case, maybe we can add more functions for this app such as adding an available apartment with the total price so that each person interested in living in this shared apartment can submit their evaluation and find out who they would like to live with. So that of course people need to have their profile on this web, maybe including their job, gender, age, home country, etc. And of course, if there are enough users they can set the filter like girl only, students only, or something else. However, what about safety. Find a stranger as a roommate is hard to say. What if someone is lying on their profile? Maybe some real-name authentication is needed. And also maybe we can add some evaluation mechanisms for each user. I don’t know. I just think these thoughts are interesting, and maybe it will come true someday.  </p>
-<h2 id="CourseBook"><a href="#CourseBook" class="headerlink" title="CourseBook"></a>CourseBook</h2><p>Yeah, I admit this name comes from Facebook, but there is no offense, just like this name very much. And by the way, I love the movie <em>Social Network</em> very much. Anyway, this is just a little demo web application, which I use to practice utilizing Angular, Node.js and of course Express, MongoDB to build a MEAN Stack project. But I hope this project has some real value, so I make it a course evaluation web app, which people can share their thought after taken each course. </p>
-<p>This idea also came out when we need to elective courses for the next quarter. It always took me a lot of time looking for the information about each course, like what the main topic is, what programming language does it use, how is the workload, etc. I also asked many classmates who have taken specific courses last year and someone also asked me for information. It’s not a bad or troublesome thing but just why we do not have a place that we share all information about courses together? Isn’t that more convenient? So I made it a course evaluation web app hope to help people with this situation. However it still not ready, and of course, the time has expired for this quarter. I hope to add more function in it, such as a searching engine or a standard evaluation format, or maybe file uploading. But it will come out other things that because this website is anonymous, I’m afraid someone will upload their homework solutions or something professor is not gonna like. So let’s figure it out step by step.  Anyway, hope myself good luck with my final exam. </p>
+        <h2 id="leetcode"><a href="#leetcode" class="headerlink" title="leetcode"></a>leetcode</h2><ul>
+<li>StringBuilder has no “sb.remove()” method, try these:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sb.deleteCharAt(sb.length() - <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>new boolean[] vs new Boolean[]</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span>[] b1 = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">1</span>];</span><br><span class="line">b1[<span class="number">0</span>] == <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Boolean[] b2 = <span class="keyword">new</span> Boolean[<span class="number">1</span>];</span><br><span class="line">b2[<span class="number">0</span>] == <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<hr>
+<ul>
+<li><p>comparator</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Compartor&lt;String&gt; myComp = <span class="keyword">new</span> Comparator&lt;String&gt;()&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String s1, String s2)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Arrays.sort(logs, myComp);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>PriorityQueue</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue&lt;Integer&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;((p1, p2) -&gt; p2 - p1);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<ul>
+<li>split string<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] words = paragraph.toLowerCase().split(<span class="string">"\\W+"</span>);</span><br><span class="line"><span class="comment">//\\W means matches the nonword characters.</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<ul>
+<li>Object[] toArray() &amp; <T> T[] toArray(T[] a)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = collection.toArray();</span><br><span class="line"></span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line"><span class="keyword">return</span> collection.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line">String[] a = collection.toArray(<span class="keyword">new</span> Sring[collection.size()]);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>map.getOrDefault(key, value)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(word, map.getOrDefault(word, <span class="number">0</span>) + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Binary Search</p>
+</li>
+</ul>
+<p>Mid using (start + end) / 2 may cost integer overflow<br>should use start + (end - start) / 2</p>
+<ul>
+<li><p>Traversal Map/Set in order</p>
+<p>HashMap and Hashtable are in the “hash order that is conducive to random search”. They are saved not in input order. We can only output all while traversing, without order. We can even rehash() the hash again to get an internal order that is more conducive to random access.</p>
+<p>Just use <strong>LinkedHashMap</strong> or <strong>LinkedHashSet</strong></p>
+</li>
+</ul>
+<h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><ul>
+<li>data type is not confimed if you do<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.getElementById(<span class="string">"id"</span>).value;</span><br></pre></td></tr></table></figure>
+if you want a string, try this<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = a + <span class="string">""</span>;</span><br></pre></td></tr></table></figure>
+if you want a number type, try this<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = a * <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<p><em>to be continued</em></p>
 
       
 
@@ -224,7 +277,7 @@
     <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/23/thoughts-for-my-apps/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/08/leetcode/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -238,18 +291,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/11/26/leetcode/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Mistakes I&#39;ve Made
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/11/20/Amazing-Solution/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Amazing Solutions</div>
+    <a href="/2020/03/05/thoughts-for-my-apps/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">thoughts for my apps</div>
       <i class="icon-circle-right"></i>
     </a>
   
