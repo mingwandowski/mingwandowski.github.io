@@ -137,6 +137,155 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-rpiServer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/30/rpiServer/">Setup Raspberry Pi as a Web Server</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/30/rpiServer/" class="archive-article-date">
+  	<time datetime="2020-05-01T02:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I bought a Raspberry Pi for my IOT course this quarter. This little guy is so powerful. So why not have a try with something interesting. </p>
+<h3 id="1-Install-Java"><a href="#1-Install-Java" class="headerlink" title="1. Install Java"></a>1. Install Java</h3><p>Usually Raspberry Pi should have Java Environment installed already, you can call</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java --version</span><br></pre></td></tr></table></figure>
+<p>to check. And if not, here are some simple steps for your reference.</p>
+<h4 id="First-update-the-package-index"><a href="#First-update-the-package-index" class="headerlink" title="First, update the package index"></a>First, update the package index</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h4 id="Next-install-Java-You-can-choose-either-JRE-or-JDK"><a href="#Next-install-Java-You-can-choose-either-JRE-or-JDK" class="headerlink" title="Next, install Java. You can choose either JRE or JDK."></a>Next, install Java. You can choose either JRE or JDK.</h4><p>More about JRE(Java Runtime Environment) or JDK(Java Development Kit)</p>
+<p>The JDK is usually needed if you are going to compile Java programs. And besides, the JDK does contain the JRE, so if you do not care about the larger file size, there are no disadvantages if you install the JDK instead of the JRE.</p>
+<p>You can install the JRE or JDK with the following commands:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install default-jre</span><br><span class="line">$ sudo apt-get install default-jdk</span><br></pre></td></tr></table></figure>
+
+<h4 id="Then-set-the-JAVA-HOME-Environment-Variable"><a href="#Then-set-the-JAVA-HOME-Environment-Variable" class="headerlink" title="Then, set the JAVA_HOME Environment Variable"></a>Then, set the JAVA_HOME Environment Variable</h4><p>Use the following command to find out where Java is installed.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
+
+<p>Copy the path and then open /etc/environment using any text editor like vim</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/environment</span><br></pre></td></tr></table></figure>
+
+<p>At the end of this file, add the following line, and replace everything in the quotation marks.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=&quot;&lt;your java path, end before go into the bin dir&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>Save and exit the file, and reload it</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source /etc/environment</span><br></pre></td></tr></table></figure>
+
+<p>You can now test whether the environment variable has been set by executing the following command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo $JAVA_HOME</span><br></pre></td></tr></table></figure>
+
+<p><strong>Finished!</strong></p>
+<h3 id="2-Install-MySQL"><a href="#2-Install-MySQL" class="headerlink" title="2. Install MySQL"></a>2. Install MySQL</h3><h4 id="First-install-MySQL"><a href="#First-install-MySQL" class="headerlink" title="First, install MySQL"></a>First, install MySQL</h4><p>Again, simply update the package index and install the default package with apt-get</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install mariadb-server</span><br></pre></td></tr></table></figure>
+
+<h4 id="Next-Configuring-MySQL"><a href="#Next-Configuring-MySQL" class="headerlink" title="Next, Configuring MySQL"></a>Next, Configuring MySQL</h4><p>With the MySQL server software installed to the Raspberry Pi, we will now need to secure it by setting a password for the “root” user.</p>
+<p>By default, MySQL is installed without any password set up. Run the following command to begin the MySQL securing process</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p>Just follow the prompts to set a password for the root user and then secure your MySQL installation.</p>
+<p>Now if you want to access your Raspberry Pi’s MySQL server and start making changes to your databases, you can enter the following command.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p>We can only use sudo to connect to MySQL as root user at this time. So we’d better create new users and grant privileges, such as following commands:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;mytestuser&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;mypassword&apos;;</span><br><span class="line">GRANT ALL PRIVILEGES ON * . * TO &apos;mytestuser&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Finished!</strong></p>
+<h3 id="3-Install-Tomcat-on-Raspberry-Pi"><a href="#3-Install-Tomcat-on-Raspberry-Pi" class="headerlink" title="3. Install Tomcat on Raspberry Pi"></a>3. Install Tomcat on Raspberry Pi</h3><h4 id="First-Download-Tomcat"><a href="#First-Download-Tomcat" class="headerlink" title="First, Download Tomcat"></a>First, Download Tomcat</h4><p>You can find the latest version of tomcat 8.5.X from <a href="http://tomcat.apache.org/download-80.cgi" target="_blank" rel="noopener">http://tomcat.apache.org/download-80.cgi</a>. You can copy the download URL and use the wget command on Raspberry Pi to download it.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget latest_tomcat_download_url (it should look like this:  http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.53/bin/apache-tomcat-8.5.53.tar.gz)</span><br></pre></td></tr></table></figure>
+
+<p>After you download the tar.gz, decompress it to a desired destination (for example, I use /home/pi/tomcat)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir /home/pi/tomcat</span><br><span class="line">$ tar xvf apache-tomcat-8.5.54.tar.gz -C /home/pi/tomcat/ --strip-components=1</span><br></pre></td></tr></table></figure>
+
+<h4 id="Second-Configure-Tomcat-Memory"><a href="#Second-Configure-Tomcat-Memory" class="headerlink" title="Second, Configure Tomcat Memory"></a>Second, Configure Tomcat Memory</h4><p>By default, the maximum heap available for Tomcat may not be enough for large projects. Thus, we need to change the memory configuration by the following steps.</p>
+<p>Go to /home/pi/tomcat/bin/, and create a text file name setenv.sh, which contains the following lines:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">env JAVA_OPTS=&quot;-Xmx512m -Xms128m&quot;</span><br></pre></td></tr></table></figure>
+<p>Xmx means the maximum heap memory available for Tomcat, and Xms means the initial memory available after each grabage collection. You may very them based on your machine capacity.</p>
+<h4 id="Third-Change-Access-Setting-of-host-manager-and-manager"><a href="#Third-Change-Access-Setting-of-host-manager-and-manager" class="headerlink" title="Third, Change Access Setting of host-manager and manager"></a>Third, Change Access Setting of host-manager and manager</h4><p>host-manager and manager are two useful default applications provided by Tomcat to manage the Tomcat server. However, by default they can be accessed by only the machine hosting tomcat, i.e., localhost.</p>
+<p>To change this, you need to change /home/pi/tomcat/webapps/host-manager/META-INF/context.xml and /home/pi/tomcat/webapps/manager/META-INF/context.xml by deleting the following lines:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; </span><br><span class="line">      allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Fourth-Create-a-Tomcat-User"><a href="#Fourth-Create-a-Tomcat-User" class="headerlink" title="Fourth, Create a Tomcat User"></a>Fourth, Create a Tomcat User</h4><p>Now, create a tomcat user so that you can manage the tomcat server remotely.</p>
+<p>Edit /home/pi/tomcat/conf/tomcat-users.xml, and add the following line:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;user username=&quot;tomcat&quot; password=&quot;123456&quot; roles=&quot;manager-gui,admin-gui&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>By doing so, you’ve created a user named “tomcat”, and its password is “123456”. You’ve also granted two roles “manager-gui” and “admin-gui” to it.</p>
+<h4 id="Finally-Start-Tomcat"><a href="#Finally-Start-Tomcat" class="headerlink" title="Finally, Start Tomcat"></a>Finally, Start Tomcat</h4><p>Now you are ready to start tomcat by executing the following command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /home/pi/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>Finished!</strong></p>
+<h3 id="configure-Raspberry-Pi"><a href="#configure-Raspberry-Pi" class="headerlink" title="configure Raspberry Pi"></a>configure Raspberry Pi</h3><p>Now that we already set up the local server environment, we still can not visit our pi from public network. </p>
+<p>We have many options depending on how stable/reliable you want. The main idea is to get our public IP address, then go to your router and make a port forwarding. Then it should be able to accesse from public network. However, since the public IP address is usually dynamic, which means it might change someday. So if you do now want to change your configuration often, you can make a dynamic IP binding. But for convenience, I’m not gonna do it at this time.</p>
+<h4 id="First-Get-Public-IP-Address"><a href="#First-Get-Public-IP-Address" class="headerlink" title="First, Get Public IP Address"></a>First, Get Public IP Address</h4><p>There are many simple ways, if you can access your browser, you can just type in the following url:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig.me/ip</span><br></pre></td></tr></table></figure>
+<p>Or you can use the following command as well:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://members.3322.org/dyndns/getip</span><br></pre></td></tr></table></figure>
+
+<p>Now that you have got your public IP address. However, actually this IP address may also change someday. Since our router has the dynamically allocated public address, we can access it temporally. But if you want to access it permanently, you might need to ask for help from ISP(Internet Service Provider). They may or may not provide you the static public IP, because it is kind of a sensitive process. </p>
+<p>So for this time, we are just going to use our dynamic public IP address. If it changed someday, we just configure it again. Or, I don’t know if it’s possible, but maybe you can try to write a shell to finish all these automatically.</p>
+<h4 id="Second-Port-Forwarding"><a href="#Second-Port-Forwarding" class="headerlink" title="Second, Port Forwarding"></a>Second, Port Forwarding</h4><p>This is simple, you can just use this command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ifconfig</span><br></pre></td></tr></table></figure>
+<p>You can focus on either eth0(ethernet) or wlan0(WiFi) depending on which way your pi is connected. Remember your inet address, which is your local IP address. And if you want to make your local IP address static, you might also need to remember your broadcast and netmask address. </p>
+<p>Then, go to your router setting page(also your gateway address, mostly it should be something like 192.168.0.1 or 192.168.1.1) </p>
+<p>For my TP-LINK router, I use 192.168.0.1 to access the login page, and then on my left, I have a “Forwarding” button. This might be different between each router, you might need to take some time to figure out how to deal with your router. </p>
+<p>In the forwarding, add new, there are going to be some form to fill. In my case, the Service Port is the port we want to access from public(more about port, it should be about 65000 ports you can use, but the port less than 1024 are usually assigned for special use, so you’d better choose some other numbers). The Internal Port is the port we want the router forward to. Since I’m using tomcat server, I would set this port to 8080. The IP Address is our Raspberry Pi’s local IP address(which is something like 192.168.0.1XX). For the Protocol I would like to choose All(both TCP and UDP). The status should be Enabled. </p>
+<p>Also, if you want to access your Raspberry Pi using ssh via public network instead of local area network, you can also make another port(for example 12345) forwarding to your Raspberry Pi’s 22 port. Then next time if you want to access your Pi from other places, you can access it using the following command(for example the service port is 12345, my Raspberry Pi’s user name is pi, and public IP address is 123.123.123.123):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -p 12345 pi@123.123.123.123</span><br></pre></td></tr></table></figure>
+
+<p><strong>Finished!</strong></p>
+<p>Now, we can access our Raspberry Pi from public network. Thus our Pi can be a simple server now. There’s still more you can do with it. Anyway thanks for reading.</p>
+<p>References:</p>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04</a></p>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-16-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-16-04</a></p>
+<p><a href="https://pimylifeup.com/raspberry-pi-mysql/" target="_blank" rel="noopener">https://pimylifeup.com/raspberry-pi-mysql/</a></p>
+<p><a href="https://geektechstuff.com/2019/05/26/installing-apache-tomcat-jenkins-raspberry-pi/" target="_blank" rel="noopener">https://geektechstuff.com/2019/05/26/installing-apache-tomcat-jenkins-raspberry-pi/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/30/rpiServer/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ThankRID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
