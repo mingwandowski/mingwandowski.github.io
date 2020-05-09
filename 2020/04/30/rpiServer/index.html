@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="I bought a Raspberry Pi for my IOT course this quarter. This little guy is so powerful. So why not have a try with something interesting.  1. Install JavaUsually Raspberry Pi should have Java Environm">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-02T16:40:56.269Z">
+<meta property="og:updated_time" content="2020-05-09T18:04:13.223Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -220,6 +220,9 @@
 <p>By doing so, you’ve created a user named “tomcat”, and its password is “123456”. You’ve also granted two roles “manager-gui” and “admin-gui” to it.</p>
 <h4 id="Finally-Start-Tomcat"><a href="#Finally-Start-Tomcat" class="headerlink" title="Finally, Start Tomcat"></a>Finally, Start Tomcat</h4><p>Now you are ready to start tomcat by executing the following command:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /home/pi/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure>
+
+<p>By default, Tomcat logging is enabled. Log files are located in logs folder in your Tomcat installation directory. Monitor log files by running the command (replace path with your installation directory):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tail -f /home/pi/tomcat/logs/*</span><br></pre></td></tr></table></figure>
 
 <p><strong>Finished!</strong></p>
 <h3 id="configure-Raspberry-Pi"><a href="#configure-Raspberry-Pi" class="headerlink" title="configure Raspberry Pi"></a>configure Raspberry Pi</h3><p>Now that we already set up the local server environment, we still can not visit our pi from public network. </p>
