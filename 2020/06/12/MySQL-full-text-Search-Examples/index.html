@@ -6,13 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>MySQL full-text Search Examples | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+  <meta name="description" content="Steps on performing the full-text search on MySQL Creating a full-text searchable table:  123456DROP TABLE IF EXISTS ft;CREATE TABLE ft (    entryID INT AUTO_INCREMENT,    entry text,    PRIMARY KEY (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL full-text Search Examples">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;12&#x2F;MySQL-full-text-Search-Examples&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Steps on performing the full-text search on MySQL Creating a full-text searchable table:  123456DROP TABLE IF EXISTS ft;CREATE TABLE ft (    entryID INT AUTO_INCREMENT,    entry text,    PRIMARY KEY (">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-06-13T01:18:06.719Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -135,16 +138,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MySQL-full-text-Search-Examples" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-MySQL-full-text-Search-Examples" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/12/MySQL-full-text-Search-Examples/">MySQL full-text Search Examples</a>
+    <h1 class="article-title" itemprop="name">
+      MySQL full-text Search Examples
     </h1>
   
 
@@ -165,218 +166,23 @@
 <ol start="2">
 <li><p>Adding Rows into the table:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> ft </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">1</span>,</span><br><span class="line">        <span class="string">'I was born in michigan in 1980 in a small town called Adrian. </span></span><br><span class="line"><span class="string">         My mother is named Sue, while my father is named Mike.  They </span></span><br><span class="line"><span class="string">         currently live in a small town called East Jordan. On April </span></span><br><span class="line"><span class="string">         27th, 2003 I will graduate from Eastern Michigan University </span></span><br><span class="line"><span class="string">         with a degree in Computer Information Systems.'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> ft</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">2</span>,</span><br><span class="line">        <span class="string">'While I was at work today I was having some problems with the </span></span><br><span class="line"><span class="string">        RAID array. It seems that we have a rogue cron script that is</span></span><br><span class="line"><span class="string">        causing problems. When I find out more info I will post it here.'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> ft</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">3</span>,</span><br><span class="line">        <span class="string">'After I graduate I am taking a 2 week vacation. On my </span></span><br><span class="line"><span class="string">        agenda is a trip to Washington DC to see my girlfriend\'s </span></span><br><span class="line"><span class="string">        sister as well as throwing a few discs at the local disc </span></span><br><span class="line"><span class="string">        golf course.'</span>);</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/06/12/MySQL-full-text-Search-Examples/#more">more >></a>
-        
-      
+<a id="more"></a></li>
+<li><p>Searching for whole words:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'golf'</span>);</span><br><span class="line"></span><br><span class="line">RESULT : entryID : 3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Prefix Search:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'grad*'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br><span class="line"></span><br><span class="line">RESULT entryID: 1 and 3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Boolean Searches:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># No operator signifies OR operation </span></span><br><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'graduate michigan'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br><span class="line"></span><br><span class="line">RESULT entryID: 1 and 3</span><br><span class="line"></span><br><span class="line"><span class="comment"># AND</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'+graduate +michigan'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>); </span><br><span class="line"></span><br><span class="line">RESULT entryID: 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Negation</span></span><br><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'+graduate -michigan'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br><span class="line"></span><br><span class="line">RESULT entryID: 3</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/12/MySQL-full-text-Search-Examples/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-rpiServer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/30/rpiServer/">Setup Raspberry Pi as a Web Server</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/30/rpiServer/" class="archive-article-date">
-  	<time datetime="2020-05-01T02:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I bought a Raspberry Pi for my IOT course this quarter. This little guy is so powerful. So why not have a try with something interesting. </p>
-<h3 id="1-Install-Java"><a href="#1-Install-Java" class="headerlink" title="1. Install Java"></a>1. Install Java</h3><p>Usually Raspberry Pi should have Java Environment installed already, you can call</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java --version</span><br></pre></td></tr></table></figure>
-<p>to check. And if not, here are some simple steps for your reference.</p>
-<h4 id="First-update-the-package-index"><a href="#First-update-the-package-index" class="headerlink" title="First, update the package index"></a>First, update the package index</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-<h4 id="Next-install-Java-You-can-choose-either-JRE-or-JDK"><a href="#Next-install-Java-You-can-choose-either-JRE-or-JDK" class="headerlink" title="Next, install Java. You can choose either JRE or JDK."></a>Next, install Java. You can choose either JRE or JDK.</h4><p>More about JRE(Java Runtime Environment) or JDK(Java Development Kit)</p>
-        
-          <a class="article-more-a" href="/2020/04/30/rpiServer/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/30/rpiServer/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ThankRID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/27/ThankRID/">Thanks Random Indian Dudes</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/27/ThankRID/" class="archive-article-date">
-  	<time datetime="2020-03-27T15:49:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="img/3.jpeg" width="50%" height="50%"><img src="img/4.jpeg" width="50%" height="50%"></p>
-        
-          <a class="article-more-a" href="/2020/03/27/ThankRID/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/27/ThankRID/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-leetcode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/08/leetcode/">Mistakes I&#39;ve Made</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/08/leetcode/" class="archive-article-date">
-  	<time datetime="2020-03-08T16:05:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="leetcode"><a href="#leetcode" class="headerlink" title="leetcode"></a>leetcode</h2><ul>
-<li>StringBuilder has no “sb.remove()” method, try these:</li>
+</li>
+</ol>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html</a></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sb.deleteCharAt(sb.length() - <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 
-<hr>
-<ul>
-<li>new boolean[] vs new Boolean[]</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span>[] b1 = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">1</span>];</span><br><span class="line">b1[<span class="number">0</span>] == <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Boolean[] b2 = <span class="keyword">new</span> Boolean[<span class="number">1</span>];</span><br><span class="line">b2[<span class="number">0</span>] == <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/03/08/leetcode/#more">more >></a>
-        
       
 
       
@@ -387,16 +193,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/08/leetcode/">more >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/12/MySQL-full-text-Search-Examples/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/30/rpiServer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Setup Raspberry Pi as a Web Server</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -416,426 +281,14 @@
 
 
 
-
   
-    <article id="post-thoughts-for-my-apps" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/05/thoughts-for-my-apps/">thoughts for my apps</a>
-    </h1>
   
 
-        
-        <a href="/2020/03/05/thoughts-for-my-apps/" class="archive-article-date">
-  	<time datetime="2020-03-05T21:13:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Soommate"><a href="#Soommate" class="headerlink" title="Soommate"></a>Soommate</h2><p>It’s been a while since I came out of this idea. It was when we discussed the rent distribution about each room. </p>
-<p>In our situation, we got 4 guys would like to live in a 3b2b apartment to reduce our average rent, but no one would like to be like a host because that would be troublesome and kind of awkward since we still did not know each other well at that time. Because each room has different size and one guy should be chosen to live in the living room, its really difficult to figure out how much is each room and who wants to choose which room.</p>
-<p>We used the most stupid way to decide: dice. Is it justice? Yeah, but I think this is not only about justice, it’s more about finding the most suitable room for each tenant. For instance, someone is rich, he does not care about how much each room takes, he just wanna live int the biggest room, the master room, with a personal bathroom in it. In other cases another guy actually does not care about what kind of room because he spent most of his time at school, then he might just choose the cheapest one. We don’t live here for several day, we are gonna live here for a while. So I believe there must be a way to figure it out. </p>
-        
-          <a class="article-more-a" href="/2020/03/05/thoughts-for-my-apps/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/05/thoughts-for-my-apps/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-learn-python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/11/learn-python/">Learn Python</a>
-    </h1>
   
 
-        
-        <a href="/2020/02/11/learn-python/" class="archive-article-date">
-  	<time datetime="2020-02-11T21:42:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Compare-With-Java"><a href="#Compare-With-Java" class="headerlink" title="Compare With Java"></a>Compare With Java</h2><p>Based on the knowledge of Java, it should be easier to learn Python. I don’t wanna learn from the beginning such as: “this is a variable, and now let’s see what we can do with a variable.”<br>So I mark this down here, to help me learn well when comparing with Java. </p>
-        
-          <a class="article-more-a" href="/2020/02/11/learn-python/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/11/learn-python/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vim" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/18/vim/">vim</a>
-    </h1>
   
 
-        
-        <a href="/2020/01/18/vim/" class="archive-article-date">
-  	<time datetime="2020-01-18T17:02:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th>Operation</th>
-<th>Explination</th>
-<th>Operation</th>
-<th>Explination</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>i</td>
-<td>insert</td>
-<td>a</td>
-<td>append</td>
-</tr>
-<tr>
-<td>I</td>
-<td>insert at line start</td>
-<td>A</td>
-<td>append at line end</td>
-</tr>
-<tr>
-<td>o</td>
-<td>insert next line</td>
-<td>O</td>
-<td>insert last line</td>
-</tr>
-<tr>
-<td>x</td>
-<td>delete char after cursor</td>
-<td>dd</td>
-<td>delete(cut) line</td>
-</tr>
-<tr>
-<td>p</td>
-<td>paste</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>c</td>
-<td>delete and write</td>
-<td>cw</td>
-<td>delete a word and write(begin)</td>
-</tr>
-<tr>
-<td>ciw</td>
-<td>delete in a word and write</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>f</td>
-<td>find a char</td>
-<td>/</td>
-<td>search</td>
-</tr>
-<tr>
-<td>w</td>
-<td>next word(begin)</td>
-<td>e</td>
-<td>next word(end)</td>
-</tr>
-<tr>
-<td>b</td>
-<td>back word(begin)</td>
-<td>ge</td>
-<td>back word(end)</td>
-</tr>
-<tr>
-<td>0</td>
-<td>line begin</td>
-<td>$</td>
-<td>line end</td>
-</tr>
-</tbody></table>
-<p>to be continued…</p>
-        
-          <a class="article-more-a" href="/2020/01/18/vim/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/18/vim/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Amazing-Solution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/20/Amazing-Solution/">Amazing Solutions</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/20/Amazing-Solution/" class="archive-article-date">
-  	<time datetime="2019-11-20T21:04:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-Game-of-Life"><a href="#1-Game-of-Life" class="headerlink" title="1. Game of Life"></a>1. Game of Life</h2><p>use 2 bits to store 2 states:<br>[2nd bit, 1st bit] = [next state, current state]</p>
-<ul>
-<li>00  dead (next) &lt;- dead (current)</li>
-<li>01  dead (next) &lt;- live (current)  </li>
-<li>10  live (next) &lt;- dead (current)  </li>
-<li>11  live (next) &lt;- live (current)
-        
-          <a class="article-more-a" href="/2019/11/20/Amazing-Solution/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/20/Amazing-Solution/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/07/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/07/hello-world/" class="archive-article-date">
-  	<time datetime="2019-11-07T06:59:26.516Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/07/hello-world/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -858,8 +311,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
