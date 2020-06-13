@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MySQL full-text Search Examples | Hexo</title>
+  <title>MySQL Master-Slave Replication | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Steps on performing the full-text search on MySQL Creating a full-text searchable table:  123456DROP TABLE IF EXISTS ft;CREATE TABLE ft (    entryID INT AUTO_INCREMENT,    entry text,    PRIMARY KEY (">
+  <meta name="description" content="This artical shows how to setup a MySQL cluster on AWS that includes a master and a slave. Reads can be sent to any of the two instances, and writes have to be sent to the master instance. 1. Setup tw">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL full-text Search Examples">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;12&#x2F;MySQL-full-text-Search-Examples&#x2F;index.html">
+<meta property="og:title" content="MySQL Master-Slave Replication">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;13&#x2F;MySQL-Master-Slave-Replication&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Steps on performing the full-text search on MySQL Creating a full-text searchable table:  123456DROP TABLE IF EXISTS ft;CREATE TABLE ft (    entryID INT AUTO_INCREMENT,    entry text,    PRIMARY KEY (">
+<meta property="og:description" content="This artical shows how to setup a MySQL cluster on AWS that includes a master and a slave. Reads can be sent to any of the two instances, and writes have to be sent to the master instance. 1. Setup tw">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-06-13T01:18:06.719Z">
+<meta property="og:updated_time" content="2020-06-13T21:22:53.691Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -138,50 +138,84 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MySQL-full-text-Search-Examples" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL-Master-Slave-Replication" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MySQL full-text Search Examples
+      MySQL Master-Slave Replication
     </h1>
   
 
         
-        <a href="/2020/06/12/MySQL-full-text-Search-Examples/" class="archive-article-date">
-  	<time datetime="2020-06-13T01:09:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-12</time>
+        <a href="/2020/06/13/MySQL-Master-Slave-Replication/" class="archive-article-date">
+  	<time datetime="2020-06-13T20:41:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Steps-on-performing-the-full-text-search-on-MySQL"><a href="#Steps-on-performing-the-full-text-search-on-MySQL" class="headerlink" title="Steps on performing the full-text search on MySQL"></a>Steps on performing the full-text search on MySQL</h2><ol>
-<li>Creating a full-text searchable table:</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> ft;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> ft (</span><br><span class="line">    entryID <span class="built_in">INT</span> AUTO_INCREMENT,</span><br><span class="line">    entry <span class="built_in">text</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (entryID),</span><br><span class="line">    FULLTEXT (entry));</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>Adding Rows into the table:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> ft </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">1</span>,</span><br><span class="line">        <span class="string">'I was born in michigan in 1980 in a small town called Adrian. </span></span><br><span class="line"><span class="string">         My mother is named Sue, while my father is named Mike.  They </span></span><br><span class="line"><span class="string">         currently live in a small town called East Jordan. On April </span></span><br><span class="line"><span class="string">         27th, 2003 I will graduate from Eastern Michigan University </span></span><br><span class="line"><span class="string">         with a degree in Computer Information Systems.'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> ft</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">2</span>,</span><br><span class="line">        <span class="string">'While I was at work today I was having some problems with the </span></span><br><span class="line"><span class="string">        RAID array. It seems that we have a rogue cron script that is</span></span><br><span class="line"><span class="string">        causing problems. When I find out more info I will post it here.'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> ft</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">3</span>,</span><br><span class="line">        <span class="string">'After I graduate I am taking a 2 week vacation. On my </span></span><br><span class="line"><span class="string">        agenda is a trip to Washington DC to see my girlfriend\'s </span></span><br><span class="line"><span class="string">        sister as well as throwing a few discs at the local disc </span></span><br><span class="line"><span class="string">        golf course.'</span>);</span><br></pre></td></tr></table></figure>
-<a id="more"></a></li>
-<li><p>Searching for whole words:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'golf'</span>);</span><br><span class="line"></span><br><span class="line">RESULT : entryID : 3</span><br></pre></td></tr></table></figure>
+        <p>This artical shows how to setup a MySQL cluster on AWS that includes a master and a slave. Reads can be sent to any of the two instances, and writes have to be sent to the master instance.</p>
+<h2 id="1-Setup-two-new-AWS-instances"><a href="#1-Setup-two-new-AWS-instances" class="headerlink" title="1. Setup two new AWS instances:"></a>1. Setup two new AWS instances:</h2><ul>
+<li><p>Create two new AWS instances identical to your previous instance used to run Fabflix. We call these “instance 2” (as the master) and “instance 3”‘ (as the slave). We assume their public IPs are 2.2.2.2 and 3.3.3.3, and their internal AWS IPs are 172.2.2.2 and 172.3.3.3, respectively.</p>
 </li>
-<li><p>Prefix Search:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'grad*'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br><span class="line"></span><br><span class="line">RESULT entryID: 1 and 3</span><br></pre></td></tr></table></figure>
+<li><p>Add new rules in their security group(s) to open their <em>MYSQL/Aurora</em> type to each other using their AWS internal IP.</p>
 </li>
-<li><p>Boolean Searches:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># No operator signifies OR operation </span></span><br><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'graduate michigan'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br><span class="line"></span><br><span class="line">RESULT entryID: 1 and 3</span><br><span class="line"></span><br><span class="line"><span class="comment"># AND</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'+graduate +michigan'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>); </span><br><span class="line"></span><br><span class="line">RESULT entryID: 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Negation</span></span><br><span class="line"><span class="keyword">SELECT</span> entryID <span class="keyword">FROM</span> ft <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (entry) AGAINST (<span class="string">'+graduate -michigan'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br><span class="line"></span><br><span class="line">RESULT entryID: 3</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html</a></li>
 </ul>
+<h2 id="2-Set-up-the-master-instance"><a href="#2-Set-up-the-master-instance" class="headerlink" title="2. Set up the master instance."></a>2. Set up the master instance.</h2><ul>
+<li><p>SSH to the master instance. Run the following command to install MySQL server.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">master-shell&gt; sudo apt-get update</span><br><span class="line">master-shell&gt; sudo apt-get install mysql-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Edit the <em>/etc/mysql/mysql.conf.d/mysqld.cnf</em> file and set the <em>bind-address</em> to 0.0.0.0. Also, uncomment the lines of <em>server-id</em> and <em>log_bin</em> properties.</p>
+<a id="more"></a></li>
+<li><p>Restart the MySQL service.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">master-shell&gt; sudo service mysql restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Login to the MySQL console. Create a new user and give it permission for replicating the database:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">master-shell&gt; mysql -u root -p</span><br><span class="line">master-mysql&gt; create user &apos;repl&apos;@&apos;%&apos; identified by &apos;slavepassword&apos;;</span><br><span class="line">master-mysql&gt; grant replication slave on *.* to &apos;repl&apos;@&apos;%&apos; ;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Run the following command in MySQL console to get the status about the master MySQL:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">master-mysql&gt; show master status;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>Keep the values of the <em>File</em> and <em>Position</em> columns, as they are needed in the next step. For example, these values are <em>mysql-bin.000001</em> and <em>337</em>.</p>
+<h2 id="3-Set-up-the-slave-instance"><a href="#3-Set-up-the-slave-instance" class="headerlink" title="3. Set up the slave instance:"></a>3. Set up the slave instance:</h2><ul>
+<li><p>SSH to the slave instance. Run the following commands to install MySQL server.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slave-shell&gt; sudo apt-get update</span><br><span class="line">slave-shell&gt; sudo apt-get install mysql-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Edit the <em>/etc/mysql/mysql.conf.d/mysqld.cnf</em> file and set the <em>bind-address</em> to 0.0.0.0. Also, <em>uncomment</em> the <em>server-id</em> property and use value 2. Do <strong>not</strong> uncomment the <em>log_bin</em> property.</p>
+</li>
+<li><p>Restart the MySQL service.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slave-shell&gt; sudo service mysql restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Login to the MySQL console and let the slave know about the master server:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slave-shell&gt; mysql -u root -p</span><br><span class="line">slave-mysql&gt; CHANGE MASTER TO MASTER_HOST=&apos;172.2.2.2&apos;, MASTER_USER=&apos;repl&apos;, MASTER_PASSWORD=&apos;slavepassword&apos;, MASTER_LOG_FILE=&apos;mysql-bin.000001&apos;, MASTER_LOG_POS=337;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>Note that the values used for <em>MASTER_LOG_FILE</em> and <em>MASTER_LOG_POS</em> are the ones from the last step.</p>
+<ul>
+<li>Start the MySQL slave:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slave-mysql&gt; start slave;</span><br><span class="line">slave-mysql&gt; show slave status;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>It should show “Slave_IO_State: Waiting for master to send event”.</p>
+<h2 id="4-Test-if-the-synchronization-works"><a href="#4-Test-if-the-synchronization-works" class="headerlink" title="4. Test if the synchronization works:"></a>4. Test if the synchronization works:</h2><ul>
+<li><p>On the master instance, create a database with a table with a tuple:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">master-shell&gt; mysql -u root -p</span><br><span class="line">master-mysql&gt; create database pets;</span><br><span class="line">master-mysql&gt; use pets;</span><br><span class="line">master-mysql&gt; create table cats(name varchar(20)); </span><br><span class="line">master-mysql&gt; insert into cats values (&quot;fluffy&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>On the slave instance, check if the data has been propagated from the master.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">slave-shell&gt; mysql -u root -p</span><br><span class="line">slave-mysql&gt; show databases;</span><br><span class="line">slave-mysql&gt; use pets;</span><br><span class="line">slave-mysql&gt; show tables; </span><br><span class="line">slave-mysql&gt; select * from cats;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>We should be able to see the database, table, and record on this instance propagated from the master. If so, congratulations!</p>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><p>It may be easy for you to create new AWS instances using an image of an existing instance. To do so, (1) select an existing instance and “Create Image” for it; and (2) Select the generated image under “IMAGES” -&gt; “AMIs”, and “Launch” instances using this image. If you use this approach, make sure to delete the file “auto.cnf” used by MySQL with the instance’s auto-generated UUID.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo \rm -rf /var/lib/mysql/auto.cnf</span><br></pre></td></tr></table></figure>
 
       
 
@@ -240,7 +274,7 @@
     <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/12/MySQL-full-text-Search-Examples/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/13/MySQL-Master-Slave-Replication/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -254,18 +288,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/06/13/MySQL-Master-Slave-Replication/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL Master-Slave Replication
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/04/30/rpiServer/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Setup Raspberry Pi as a Web Server</div>
+    <a href="/2020/06/12/MySQL-full-text-Search-Examples/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL full-text Search Examples</div>
       <i class="icon-circle-right"></i>
     </a>
   
