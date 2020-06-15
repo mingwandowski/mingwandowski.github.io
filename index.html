@@ -163,54 +163,9 @@
 
 <h2 id="Step-2-master-slave"><a href="#Step-2-master-slave" class="headerlink" title="Step 2 (master/slave):"></a>Step 2 (master/slave):</h2><p>Setup Tomcat on each master/slave instance.</p>
 <h2 id="Step-3-master-slave"><a href="#Step-3-master-slave" class="headerlink" title="Step 3 (master/slave):"></a>Step 3 (master/slave):</h2><p>On each master/slave instance, deploy <a href="https://github.com/mingwandowski/mingwandowski.github.io/blob/master/files/TomcatTest.war" target="_blank" rel="noopener">TomcatTest.war</a>. Make the URL <em><a href="http://PUBLIC_IP:8080/TomcatTest/servlet/TomcatTest" target="_blank" rel="noopener">http://PUBLIC_IP:8080/TomcatTest/servlet/TomcatTest</a></em> work. You may need to modify the username/password and IP address (use the internal AWS instance address). Also make sure to modify the AWS security group setting for these two instances to allow remote access to their 8080 port.</p>
-<h2 id="Step-4-master-slave"><a href="#Step-4-master-slave" class="headerlink" title="Step 4 (master/slave):"></a>Step 4 (master/slave):</h2><p>On each master/slave instance, deploy <a href="https://github.com/mingwandowski/mingwandowski.github.io/blob/master/files/Session.war" target="_blank" rel="noopener">Session.war</a>. Make the URL <em><a href="http://PUBLIC_IP:8080/Session/servlet/ShowSession?myname=Mighael" target="_blank" rel="noopener">http://PUBLIC_IP:8080/Session/servlet/ShowSession?myname=Mighael</a></em> work.</p>
-<h2 id="Step-5-instance-1"><a href="#Step-5-instance-1" class="headerlink" title="Step 5 (instance 1):"></a>Step 5 (instance 1):</h2><p>On the instance that runs the original Fablix instance (called “instance 1”), set up Apache and its proxy by doing the following:</p>
-<ul>
-<li>Install Apache2 and related modules:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">instance1-shell&gt; sudo apt-get install apache2</span><br><span class="line">instance1-shell&gt; sudo a2enmod proxy proxy_balancer proxy_http rewrite headers lbmethod_byrequests</span><br><span class="line">instance1-shell&gt; sudo service apache2 restart</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>Modify the security group to open port 80 of instance 1 to your IP address. Use your browser to open a URL using the public IP address of instance 1, and you should be able to see an “Apache2 Ubuntu Default Page”. It means you have successfully set up the Apache2 on this machine.</p>
-<ul>
-<li><p>Configure the Apache2 webserver to use its <em>proxy_balancer</em> module for sharing (i.e., redirecting) requests to the backend instances. To do it, edit the following configuration file:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">instance1-shell&gt; sudo vim /etc/apache2/sites-enabled/000-default.conf</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create a load balancer proxy, whose members are the backend instances. In particular, define a proxy on top of the file, before the &lt;VirtualHost *:80&gt; tag.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Proxy &quot;balancer://TomcatTest_balancer&quot;&gt;</span><br><span class="line">    BalancerMember &quot;http://172.2.2.2:8080/TomcatTest/&quot;</span><br><span class="line">    BalancerMember &quot;http://172.3.3.3:8080/TomcatTest/&quot;</span><br><span class="line">&lt;/Proxy&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>Here we assume ‘172.2.2.2’ and ‘172.3.3.3’ are the private IP address of the master and slave instances, respectively.</p>
-<ul>
-<li><p>Add two new rules in the body of the VirtualHost tag.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ProxyPass /TomcatTest balancer://TomcatTest_balancer</span><br><span class="line">ProxyPassReverse /TomcatTest balancer://TomcatTest_balancer</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Restart Apache:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">instance1-shell&gt; sudo service apache2 restart</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Modify the security group of the two backend instances to allow instance 1 to access their 8080 port.</p>
-</li>
-</ul>
-<p>These settings will redirect HTTP requests to “instance1_IP/TomcatTest” to one of the two backend instances. To test it, use a browser to point to <em><a href="http://instance1_IP/TomcatTest/servlet/TomcatTest" target="_blank" rel="noopener">http://instance1_IP/TomcatTest/servlet/TomcatTest</a></em>. Be sure to open port 80 of instance 1 to your IP address. Check the Tomcat access log of the two backend instances.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">instance2-shell&gt; tail -f /home/ubuntu/tomcat/logs/*</span><br><span class="line">instance3-shell&gt; tail -f /home/ubuntu/tomcat/logs/*</span><br></pre></td></tr></table></figure>
-
-<p>One of them should receive that request. Keep refreshing the page to send multiple requests, and check if the two backends are receiving the requests evenly.</p>
-<h2 id="Step-6-instance-1"><a href="#Step-6-instance-1" class="headerlink" title="Step 6 (instance 1):"></a>Step 6 (instance 1):</h2><p>Configure the proxy on instance 1 to handle sessions properly. Since the current setting will send requests randomly to the backend, it will not pass cookies properly, causing sessions to fail. We want to make the session persist over several requests of the same client, i.e., to have a sticky session. To do it, read the <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html" target="_blank" rel="noopener">instructions</a>, especially those under “Examples of a balancer configuration”.</p>
-<p>Here’s a sample setting for the <em>/etc/apache2/sites-enabled/000-default.conf</em> file for the “Session.war” application:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Header add Set-Cookie &quot;ROUTEID=.%&#123;BALANCER_WORKER_ROUTE&#125;e; path=/&quot; env=BALANCER_ROUTE_CHANGED</span><br><span class="line"></span><br><span class="line">&lt;Proxy &quot;balancer://Session_balancer&quot;&gt;</span><br><span class="line">    BalancerMember &quot;http://172.2.2.2:8080/Session&quot; route=1</span><br><span class="line">    BalancerMember &quot;http://172.3.3.3:8080/Session&quot; route=2</span><br><span class="line">ProxySet stickysession=ROUTEID</span><br><span class="line">&lt;/Proxy&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Also, do the following:</p>
-<ul>
-<li><p>Add two new rules in the body of the VirtualHost tag.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ProxyPass /Session balancer://Session_balancer</span><br><span class="line">ProxyPassReverse /Session balancer://Session_balancer</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Restart Apache:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">instance1-shell&gt; sudo service apache2 restart</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>Test if it works by pointing to the URL <em><a href="http://instance1_IP/Session/servlet/ShowSession?myname=Michael" target="_blank" rel="noopener">http://instance1_IP/Session/servlet/ShowSession?myname=Michael</a></em> of instance 1. It should access one of the backend instances only.</p>
-
+        
+          <a class="article-more-a" href="/2020/06/14/Load-Balancer-Scaling/#more">more >></a>
+        
       
 
       
