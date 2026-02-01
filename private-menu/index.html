@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>菜单</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: #fafafa;
+      color: #333;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 24px;
+    }
+
+    .category {
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 4px;
+    }
+
+    .dish {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dish:hover {
+      background: #f5f5f5;
+    }
+
+    .dish input {
+      transform: scale(1.2);
+    }
+
+    .dish-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dish-name {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .dish-risk {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .note {
+      margin-top: 20px;
+    }
+
+    .note label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .note textarea {
+      width: 100%;
+      min-height: 60px;
+      padding: 8px 10px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    button {
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+
+    .copied {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #4caf50;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>氧气家东北家常菜</h1>
+  <div class="subtitle">点你想吃的，翻不翻车随缘</div>
+
+  <div id="dish-list"></div>
+
+  <!-- 备注输入 -->
+  <div class="note">
+    <label for="note">备注（可选）</label>
+    <textarea id="note" placeholder="比如：不吃香菜、少油、对花生过敏"></textarea>
+  </div>
+
+  <div class="actions">
+    <button onclick="submitOrder()">点菜并复制</button>
+    <div id="result" class="result"></div>
+    <div id="copied" class="copied"></div>
+  </div>
+
+  <script>
+    // ========= 菜品数据 =========
+    const menuData = {
+      categories: [
+        {
+          id: "meat",
+          name: "荤菜",
+          items: [
+            { id: "sweet_sour_ribs", name: "糖醋排骨", spicy: false, failRate: 2, ingredients: ["排骨", "糖", "醋", "酱油"] },
+            { id: "kung_pao_chicken", name: "宫保鸡丁", spicy: true, failRate: 3, ingredients: ["鸡胸肉", "花生", "干辣椒", "花椒"] },
+            { id: "cola_chicken_wings", name: "可乐鸡翅", spicy: false, failRate: 2, ingredients: ["鸡翅", "可乐", "酱油", "姜"] },
+            { id: "braised_pomfret", name: "红烧鲳鱼", spicy: false, failRate: 3, ingredients: ["鲳鱼", "酱油", "葱", "姜"] },
+            { id: "braised_pork", name: "红烧肉", spicy: false, failRate: 3, ingredients: ["五花肉", "冰糖", "酱油", "料酒"] },
+            { id: "guobao_pork", name: "锅包肉", spicy: false, failRate: 4, ingredients: ["里脊肉", "淀粉", "糖", "醋"] },
+            { id: "huangmen_chicken", name: "黄焖鸡", spicy: true, failRate: 2, ingredients: ["鸡腿肉", "土豆", "青椒", "黄豆酱"] },
+            { id: "farm_stir_fry_pork", name: "农家小炒肉", spicy: true, failRate: 2, ingredients: ["五花肉", "辣椒", "蒜苗"] },
+            { id: "cumin_beef", name: "孜然牛肉", spicy: true, failRate: 3, ingredients: ["牛肉", "孜然", "洋葱", "辣椒"] },
+            { id: "ribs_bean_stew", name: "排骨炖豆角", spicy: false, failRate: 2, ingredients: ["排骨", "豆角", "土豆"] }
+          ]
+        },
+        {
+          id: "vegetable",
+          name: "素菜",
+          items: [
+            { id: "blanched_lettuce", name: "白灼生菜", spicy: false, failRate: 1, ingredients: ["生菜", "蒜", "酱油"] },
+            { id: "vinegar_potato", name: "李氏醋溜土豆丝", spicy: false, failRate: 2, ingredients: ["土豆", "醋", "干辣椒"] },
+            { id: "stir_fry_asparagus", name: "清炒莴笋", spicy: false, failRate: 1, ingredients: ["莴笋", "蒜"] },
+            { id: "bok_choy", name: "清炒小白菜", spicy: false, failRate: 1, ingredients: ["小白菜", "蒜"] },
+            { id: "romaine", name: "清炒油麦菜", spicy: false, failRate: 1, ingredients: ["油麦菜", "蒜"] },
+            { id: "mushroom_bok_choy", name: "香菇油菜", spicy: false, failRate: 2, ingredients: ["香菇", "油菜"] },
+            { id: "tomato_egg", name: "西红柿炒鸡蛋", spicy: false, failRate: 1, ingredients: ["西红柿", "鸡蛋"] },
+            { id: "sweet_sour_lotus", name: "糖醋藕片", spicy: false, failRate: 2, ingredients: ["莲藕", "糖", "醋"] },
+            { id: "di_san_xian", name: "地三鲜", spicy: false, failRate: 3, ingredients: ["土豆", "茄子", "青椒"] }
+          ]
+        },
+        {
+          id: "drink",
+          name: "饮料",
+          items: [
+            { id: "coconut_water", name: "椰子水", spicy: false, failRate: null, ingredients: ["椰子水"] },
+            { id: "orange_juice", name: "橙汁", spicy: false, failRate: null, ingredients: ["橙汁"] },
+            { id: "cola", name: "可乐", spicy: false, failRate: null, ingredients: ["可乐"] }
+          ]
+        }
+      ]
+    };
+
+    const dishList = document.getElementById("dish-list");
+    const result = document.getElementById("result");
+    const copied = document.getElementById("copied");
+    const noteInput = document.getElementById("note");
+
+    function renderStars(count) {
+      return "⭐".repeat(count);
+    }
+
+    // ========= 渲染分类和菜品 =========
+    menuData.categories.forEach(category => {
+      const categoryDiv = document.createElement("div");
+      categoryDiv.className = "category";
+
+      const title = document.createElement("div");
+      title.className = "category-title";
+      title.innerText = category.name;
+      categoryDiv.appendChild(title);
+
+      category.items.forEach(dish => {
+        const label = document.createElement("label");
+        label.className = "dish";
+
+        const spicyTag = dish.spicy ? " 🌶️" : "";
+        const riskText = dish.failRate ? `翻车概率：${renderStars(dish.failRate)}` : "";
+
+        label.innerHTML = `
+          <input type="checkbox" value="${dish.name}${spicyTag}" />
+          <div class="dish-info">
+            <div class="dish-name">${dish.name}${spicyTag}</div>
+            ${riskText ? `<div class="dish-risk">${riskText}</div>` : ""}
+          </div>
+        `;
+        categoryDiv.appendChild(label);
+      });
+
+      dishList.appendChild(categoryDiv);
+    });
+
+    // ========= 提交并复制 =========
+    function submitOrder() {
+      copied.innerText = "";
+
+      const selected = [...dishList.querySelectorAll('input[type="checkbox"]:checked')]
+        .map(cb => cb.value);
+
+      if (selected.length === 0) {
+        result.innerText = "你还没点菜呢 🙂";
+        return;
+      }
+
+      let text = `我点了：\n- ${selected.join("\n- ")}`;
+
+      const note = noteInput.value.trim();
+      if (note) {
+        text += `\n\n备注：\n${note}`;
+      }
+
+      result.innerText = text;
+
+      navigator.clipboard.writeText(text).then(() => {
+        copied.innerText = "已复制，可以直接发微信了 👍";
+      }).catch(() => {
+        copied.innerText = "复制失败，请手动复制";
+      });
+    }
+  </script>
+
+</body>
+</html>
